@@ -20,3 +20,7 @@ sell 101.2 5
 buy 99.5 20
 sell 101.0 15
 ```
+
+## Unit Testing
+
+Run `mvn test`
