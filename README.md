@@ -24,3 +24,7 @@ sell 101.0 15
 ## Unit Testing
 
 Run `mvn test`
+
+## Building from source 
+
+Run `mvn install`

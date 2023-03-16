@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: wiki.misie.CentralLimitOrderBookTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.505 s - in wiki.misie.CentralLimitOrderBookTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.385 s - in wiki.misie.CentralLimitOrderBookTest

@@ -10,17 +10,15 @@ public class CentralLimitOrderBook {
   private int nextOrderId = 1;
   private Map<String, Order> buyOrders = new HashMap<>();
   private Map<String, Order> sellOrders = new HashMap<>();
-  Comparator<Order> buyOrderComparator = (o1, o2) -> {
-    int priceComparison = Double.compare(o2.price(), o1.price());
-    if (priceComparison != 0) {
-      return priceComparison;
-    }
-    return Long.compare(o1.timestamp(), o2.timestamp());
-  };
 
-  private PriorityQueue<Order> buyPriorityQueue = new PriorityQueue<>(buyOrderComparator);
-  private PriorityQueue<Order> sellPriorityQueue = new PriorityQueue<>(
-      Comparator.comparingDouble(Order::price).thenComparingLong(Order::timestamp));
+  Comparator<Order> orderComparator = Comparator
+      .comparing(Order::isBuy, Comparator.reverseOrder())
+      .thenComparing(o -> o.isBuy() ? o.price() : -o.price(), Comparator.reverseOrder())
+      .thenComparing(Order::timestamp)
+      .thenComparing(Order::orderId);
+
+  private PriorityQueue<Order> buyPriorityQueue = new PriorityQueue<>(orderComparator);
+  private PriorityQueue<Order> sellPriorityQueue = new PriorityQueue<>(orderComparator);
 
   public void addOrder(Order order) {
     Order orderWithOrderId = order.withOrderId(nextOrderId++);
@@ -75,17 +73,13 @@ public class CentralLimitOrderBook {
     }
   }
 
-  public PriorityQueue<Order> getCombinedOrders() {
-    PriorityQueue<Order> combinedOrders = new PriorityQueue<>(Comparator
-        .comparing(Order::isBuy, Comparator.reverseOrder())
-        .thenComparing(o -> o.isBuy() ? o.price() : -o.price(), Comparator.reverseOrder())
-        .thenComparing(Order::timestamp)
-        .thenComparing(Order::orderId));
+ public PriorityQueue<Order> getCombinedOrders() {
+    PriorityQueue<Order> combinedOrders = new PriorityQueue<>(orderComparator);
 
     combinedOrders.addAll(buyPriorityQueue);
     combinedOrders.addAll(sellPriorityQueue);
 
     return combinedOrders;
-  }
+}
 
 }
