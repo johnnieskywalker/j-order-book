@@ -11,14 +11,16 @@ java -classpath .:target/dependency/* Main "buy 1000 99" "buy 500 99" "buy 500 9
 ```sh
 java -classpath .:target/dependency/* Main "orders.txt"
 ```
-
+orders.txt contain the same data as test givenAggressiveSellOrder_whenAddedToOrderBook_thenShouldMatchBuyOrdersInPriceTimePriority
+It's the example where trades occur
 example orders.txt file
 
 ```
-buy 100.5 10
-sell 101.2 5
-buy 99.5 20
-sell 101.0 15
+buy 99 1000
+buy 99 500
+buy 98 1200
+sell 101 2000
+sell 95 2000
 ```
 
 ## Unit Testing

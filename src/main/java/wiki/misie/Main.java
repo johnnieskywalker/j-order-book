@@ -26,6 +26,7 @@ class Main {
     for (Order order : orders) {
       orderBook.addOrder(order.withTimestamp(Instant.now().getEpochSecond()));
     }
+    orderBook.matchOrders();
     orderBook.printOrderBook();
   }
 

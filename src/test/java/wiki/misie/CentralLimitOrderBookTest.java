@@ -109,4 +109,30 @@ public class CentralLimitOrderBookTest {
     assertEquals(1, orderBook.getSellOrders().size()); // One sell order left
   }
 
+  @Test
+  public void givenOrdersWithNoMatch_whenAddedToOrderBook_thenShouldNotMatchOrders() {
+    CentralLimitOrderBook orderBook = new CentralLimitOrderBook();
+
+    Order buyOrder1 = new Order(Order.Type.BUY, 98, 25500).withTimestamp(10000);
+    Order sellOrder1 = new Order(Order.Type.SELL, 100, 500).withTimestamp(10001);
+    Order sellOrder2 = new Order(Order.Type.SELL, 100, 10000).withTimestamp(10002);
+    Order buyOrder2 = new Order(Order.Type.BUY, 99, 50000).withTimestamp(10003);
+    Order sellOrder3 = new Order(Order.Type.SELL, 103, 100).withTimestamp(10004);
+    Order sellOrder4 = new Order(Order.Type.SELL, 105, 20000).withTimestamp(10005);
+
+    orderBook.addOrder(buyOrder1);
+    orderBook.addOrder(sellOrder1);
+    orderBook.addOrder(sellOrder2);
+    orderBook.addOrder(buyOrder2);
+    orderBook.addOrder(sellOrder3);
+    orderBook.addOrder(sellOrder4);
+
+    orderBook.printOrderBook();
+
+    PriorityQueue<Order> combinedOrders = orderBook.getCombinedOrders();
+
+    assertEquals(2, orderBook.getBuyOrders().size());
+    assertEquals(4, orderBook.getSellOrders().size());
+  }
+
 }

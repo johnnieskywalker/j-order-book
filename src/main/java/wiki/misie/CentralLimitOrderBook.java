@@ -33,36 +33,40 @@ public class CentralLimitOrderBook {
     matchOrders();
   }
 
-  private void matchOrders() {
+public void matchOrders() {
     while (!buyPriorityQueue.isEmpty() && !sellPriorityQueue.isEmpty()
-        && buyPriorityQueue.peek().price() >= sellPriorityQueue.peek().price()) {
-      Order buyOrder = buyPriorityQueue.poll();
-      Order sellOrder = sellPriorityQueue.poll();
+            && buyPriorityQueue.peek().price() >= sellPriorityQueue.peek().price()) {
+        Order buyOrder = buyPriorityQueue.poll();
+        Order sellOrder = sellPriorityQueue.poll();
 
-      int tradeQuantity = Math.min(buyOrder.quantity(), sellOrder.quantity());
-      double tradePrice = sellOrder.price();
+        int tradeQuantity = Math.min(buyOrder.quantity(), sellOrder.quantity());
+        double tradePrice = sellOrder.price();
 
-      // Update order quantities
-      buyOrder = new Order(buyOrder.type(), buyOrder.price(), buyOrder.quantity() - tradeQuantity, buyOrder.timestamp(),
-          buyOrder.orderId());
-      sellOrder = new Order(sellOrder.type(), sellOrder.price(), sellOrder.quantity() - tradeQuantity,
-          sellOrder.timestamp(), sellOrder.orderId());
+        // Update order quantities
+        buyOrder = new Order(buyOrder.type(), buyOrder.price(), buyOrder.quantity() - tradeQuantity, buyOrder.timestamp(),
+                buyOrder.orderId());
+        sellOrder = new Order(sellOrder.type(), sellOrder.price(), sellOrder.quantity() - tradeQuantity,
+                sellOrder.timestamp(), sellOrder.orderId());
 
-      if (buyOrder.quantity() > 0) {
-        buyOrders.put(String.valueOf(buyOrder.orderId()), buyOrder);
-        buyPriorityQueue.add(buyOrder);
-      } else {
-        buyOrders.remove(String.valueOf(buyOrder.orderId()));
-      }
+        if (buyOrder.quantity() > 0) {
+            buyOrders.put(String.valueOf(buyOrder.orderId()), buyOrder);
+            buyPriorityQueue.add(buyOrder);
+        } else {
+            buyOrders.remove(String.valueOf(buyOrder.orderId()));
+        }
 
-      if (sellOrder.quantity() > 0) {
-        sellOrders.put(String.valueOf(sellOrder.orderId()), sellOrder);
-        sellPriorityQueue.add(sellOrder);
-      } else {
-        sellOrders.remove(String.valueOf(sellOrder.orderId()));
-      }
+        if (sellOrder.quantity() > 0) {
+            sellOrders.put(String.valueOf(sellOrder.orderId()), sellOrder);
+            sellPriorityQueue.add(sellOrder);
+        } else {
+            sellOrders.remove(String.valueOf(sellOrder.orderId()));
+        }
+
+        // Print the trade
+        System.out.println("trade " + sellOrder.orderId() + "," + buyOrder.orderId() + "," + tradePrice + "," + tradeQuantity);
     }
-  }
+}
+
 
   public void printOrderBook() {
     PriorityQueue<Order> combinedOrders = getCombinedOrders();
@@ -91,4 +95,5 @@ public class CentralLimitOrderBook {
     return unmodifiableMap(sellOrders);
   }
 
+  
 }
