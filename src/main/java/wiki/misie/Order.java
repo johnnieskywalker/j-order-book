@@ -28,6 +28,10 @@ public record Order(
     return type == Type.BUY;
   }
 
+  public Order withOrderId(int orderId) {
+    return new Order(type, price, quantity, timestamp, orderId);
+  }
+
   @Override
   public String toString() {
     return "Order{" +

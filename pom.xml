@@ -34,9 +34,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
+        <version>3.0.0-M5</version>
         <configuration>
-          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          <testInclude>**/*Test.java</testInclude>
+          <redirectTestOutputToFile>false</redirectTestOutputToFile>
+<!--           <outputFile>target/surefire-reports/TEST-output.txt</outputFile> -->
         </configuration>
         <dependencies>
           <dependency>

@@ -10,19 +10,26 @@ public class CentralLimitOrderBook {
   private int nextOrderId = 1;
   private Map<String, Order> buyOrders = new HashMap<>();
   private Map<String, Order> sellOrders = new HashMap<>();
-  private PriorityQueue<Order> buyPriorityQueue = new PriorityQueue<>(
-      Comparator.comparingDouble(Order::price).reversed().thenComparingLong(Order::timestamp));
+  Comparator<Order> buyOrderComparator = (o1, o2) -> {
+    int priceComparison = Double.compare(o2.price(), o1.price());
+    if (priceComparison != 0) {
+      return priceComparison;
+    }
+    return Long.compare(o1.timestamp(), o2.timestamp());
+  };
+
+  private PriorityQueue<Order> buyPriorityQueue = new PriorityQueue<>(buyOrderComparator);
   private PriorityQueue<Order> sellPriorityQueue = new PriorityQueue<>(
       Comparator.comparingDouble(Order::price).thenComparingLong(Order::timestamp));
 
   public void addOrder(Order order) {
-    order = new Order(order.type(), order.price(), order.quantity(), Instant.now().getEpochSecond(), nextOrderId++);
-    if (order.isBuy()) {
-      buyOrders.put(String.valueOf(order.orderId()), order);
-      buyPriorityQueue.add(order);
+    Order orderWithOrderId = order.withOrderId(nextOrderId++);
+    if (orderWithOrderId.isBuy()) {
+      buyOrders.put(String.valueOf(orderWithOrderId.orderId()), orderWithOrderId);
+      buyPriorityQueue.add(orderWithOrderId);
     } else {
-      sellOrders.put(String.valueOf(order.orderId()), order);
-      sellPriorityQueue.add(order);
+      sellOrders.put(String.valueOf(orderWithOrderId.orderId()), orderWithOrderId);
+      sellPriorityQueue.add(orderWithOrderId);
     }
     matchOrders();
   }
@@ -68,9 +75,10 @@ public class CentralLimitOrderBook {
     }
   }
 
-  PriorityQueue<Order> getCombinedOrders() {
+  public PriorityQueue<Order> getCombinedOrders() {
     PriorityQueue<Order> combinedOrders = new PriorityQueue<>(Comparator
-        .comparing(Order::price)
+        .comparing(Order::isBuy, Comparator.reverseOrder())
+        .thenComparing(o -> o.isBuy() ? o.price() : -o.price(), Comparator.reverseOrder())
         .thenComparing(Order::timestamp)
         .thenComparing(Order::orderId));
 
