@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
+import static java.util.Collections.unmodifiableMap;
 
 public class CentralLimitOrderBook {
   private int nextOrderId = 1;
@@ -73,13 +74,21 @@ public class CentralLimitOrderBook {
     }
   }
 
- public PriorityQueue<Order> getCombinedOrders() {
+  public PriorityQueue<Order> getCombinedOrders() {
     PriorityQueue<Order> combinedOrders = new PriorityQueue<>(orderComparator);
 
     combinedOrders.addAll(buyPriorityQueue);
     combinedOrders.addAll(sellPriorityQueue);
 
     return combinedOrders;
-}
+  }
+
+  public Map<String, Order> getBuyOrders() {
+    return unmodifiableMap(buyOrders);
+  }
+
+  public Map<String, Order> getSellOrders() {
+    return unmodifiableMap(sellOrders);
+  }
 
 }
