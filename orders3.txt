@@ -1,0 +1,15 @@
+buy 99 1000
+sell 100 200
+buy 99 500
+sell 101 500
+buy 98 1200
+sell 99 1500
+buy 97 800
+buy 98 500
+sell 96 700
+sell 101 1000
+buy 100 1500
+sell 70 100000
+buy 98 2000
+sell 102 100
+buy 99 300
