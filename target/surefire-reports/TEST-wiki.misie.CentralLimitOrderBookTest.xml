@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="wiki.misie.CentralLimitOrderBookTest" time="0.611" tests="4" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="wiki.misie.CentralLimitOrderBookTest" time="1.025" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/nix/store/gpxl5qgg8kicmcvivwmybwjlpf7wh20l-graalvm17-ce-22.3.0/lib"/>
-    <property name="sun.java.command" value="/home/runner/OrderBook/target/surefire/surefirebooter6246706414477282699.jar /home/runner/OrderBook/target/surefire 2023-03-17T00-04-32_109-jvmRun1 surefire6825821351389835722tmp surefire_0241971507576434792tmp"/>
+    <property name="sun.java.command" value="/home/runner/OrderBook/target/surefire/surefirebooter6545979611878736211.jar /home/runner/OrderBook/target/surefire 2023-03-17T00-25-30_445-jvmRun1 surefire10429842504552962263tmp surefire_0880426457136130922tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/runner/OrderBook/target/test-classes:/home/runner/OrderBook/target/classes:/home/runner/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.8.2/junit-jupiter-api-5.8.2.jar:/home/runner/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/runner/.m2/repository/org/junit/platform/junit-platform-commons/1.8.2/junit-platform-commons-1.8.2.jar:/home/runner/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/runner/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar:/home/runner/.m2/repository/junit/junit/4.10/junit-4.10.jar:/home/runner/.m2/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -28,7 +28,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/runner/OrderBook/target/surefire/surefirebooter6246706414477282699.jar"/>
+    <property name="surefire.real.class.path" value="/home/runner/OrderBook/target/surefire/surefirebooter6545979611878736211.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.5+8-jvmci-22.3-b08"/>
     <property name="user.name" value="runner"/>
@@ -53,7 +53,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="givenAggressiveSellOrder_whenAddedToOrderBook_thenShouldMatchBuyOrdersInPriceTimePriority" classname="wiki.misie.CentralLimitOrderBookTest" time="0.353">
+  <testcase name="givenAggressiveSellOrder_whenAddedToOrderBook_thenShouldMatchBuyOrdersInPriceTimePriority" classname="wiki.misie.CentralLimitOrderBookTest" time="0.611">
     <system-out><![CDATA[Running test: givenAggressiveSellOrder_whenAddedToOrderBook_thenShouldMatchBuyOrdersInPriceTimePriority()
 trade 5,1,95.0,1000
 trade 5,3,95.0,500
@@ -62,7 +62,7 @@ trade 5,2,95.0,500
 4,S,101,2000
 ]]></system-out>
   </testcase>
-  <testcase name="givenBuyAndSellOrders_whenAddedToOrderBook_thenShouldNotMatchOrders" classname="wiki.misie.CentralLimitOrderBookTest" time="0.009">
+  <testcase name="givenBuyAndSellOrders_whenAddedToOrderBook_thenShouldNotMatchOrders" classname="wiki.misie.CentralLimitOrderBookTest" time="0.096">
     <system-out><![CDATA[Running test: givenBuyAndSellOrders_whenAddedToOrderBook_thenShouldNotMatchOrders()
 1,B,99,1000
 3,B,99,500
@@ -70,7 +70,7 @@ trade 5,2,95.0,500
 4,S,101,2000
 ]]></system-out>
   </testcase>
-  <testcase name="givenOrdersWithNoMatch_whenAddedToOrderBook_thenShouldNotMatchOrders" classname="wiki.misie.CentralLimitOrderBookTest" time="0.014">
+  <testcase name="givenOrdersWithNoMatch_whenAddedToOrderBook_thenShouldNotMatchOrders" classname="wiki.misie.CentralLimitOrderBookTest" time="0.022">
     <system-out><![CDATA[Running test: givenOrdersWithNoMatch_whenAddedToOrderBook_thenShouldNotMatchOrders()
 4,B,99,50000
 1,B,98,25500
@@ -80,7 +80,7 @@ trade 5,2,95.0,500
 6,S,105,20000
 ]]></system-out>
   </testcase>
-  <testcase name="givenBuyOrders_whenAddedToOrderBook_thenShouldMatchOrdersInPriceTimePriority" classname="wiki.misie.CentralLimitOrderBookTest" time="0.012">
+  <testcase name="givenBuyOrders_whenAddedToOrderBook_thenShouldMatchOrdersInPriceTimePriority" classname="wiki.misie.CentralLimitOrderBookTest" time="0.013">
     <system-out><![CDATA[Running test: givenBuyOrders_whenAddedToOrderBook_thenShouldMatchOrdersInPriceTimePriority()
 1,B,99,1000
 3,B,99,500
